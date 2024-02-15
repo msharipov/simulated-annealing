@@ -5,4 +5,3 @@ if not os.path.exists("output"):
 
 if not os.path.exists("plots"):
     os.makedirs("plots")
-    
