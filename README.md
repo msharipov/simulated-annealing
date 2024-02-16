@@ -6,7 +6,7 @@
 1. `git clone https://github.com/msharipov/simulated-annealing`
 2. Create required folders with `python setup.py`
 3. Configure the `potential()` and `accept()` functions in `parameters.cpp`
-4  Set the `HEIGHT` and `WIDTH` of the matrix in `parameters.h`. `MAX_STEPS` controls how many steps the computation will run for.
+4. Set the `HEIGHT` and `WIDTH` of the matrix in `parameters.h`. `MAX_STEPS` controls how many steps the computation will run for.
 5. Compile in the VS Developer PowerShell with `cl /EHsc /O2 /Fe: annealing.exe parameters.cpp annealing.cpp`
 6. Run the computation with `.\annealing.exe`
 7. Run `python plot.py` to plot the data
