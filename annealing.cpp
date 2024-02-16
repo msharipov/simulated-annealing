@@ -117,6 +117,28 @@ print_mat(const mat_t<int_fast8_t> & mat, std::ofstream & ofs) {
 }
 
 
+std::ifstream &
+load_mat(mat_t<int_fast8_t> & mat, std::ifstream & ifs) {
+    
+    for (size_t r = 0; r < HEIGHT; r++) {
+    for (size_t c = 0; c < WIDTH; c++) {
+        try {
+
+            std::string x;
+            ifs >> x;
+            mat[r][c] = std::stoi(x);
+
+        } catch (std::system_error) {
+            std::cerr << "Failed reading the file! Aborting...\n";
+            exit(1);
+        }
+    }
+    }
+
+    return ifs;
+}
+
+
 double
 potential(const mat_t<int_fast8_t> & mat, const size_t r,
           const size_t c, const bool wrap=true) {
@@ -132,8 +154,6 @@ potential(const mat_t<int_fast8_t> & mat, const size_t r,
     for (auto n : *far) {
         V -= 3*mat[n.first][n.second];
     }
-
-    V -= (25.0*r)/HEIGHT;
 
     return V;
 }
@@ -197,6 +217,7 @@ int main(int argc, char * argv[]) {
     std::ostringstream name("", std::ios_base::ate);
 
     const bool WRAPPED = false;
+    uint32_t step_offset = 0;
 
     up<mat_t<int_fast8_t>> mat(new mat_t<int_fast8_t>());
     for (size_t r = 0; r < HEIGHT; r++) {
@@ -212,18 +233,33 @@ int main(int argc, char * argv[]) {
     }
     }
 
-    std::cout << "Etching the initial condition\n";
-    etch(*mat, WRAPPED);
+    if (argc == 3) {
+
+        std::ifstream ifs;
+        std::string filename(argv[1]);
+        std::cout << "Loading " << filename << '\n';
+        ifs.open(filename);
+        if (!ifs.is_open()) {
+            std::cerr << "Failed reading the file! Aborting...\n";
+            exit(1);
+        }
+        load_mat(*mat, ifs);
+        ifs.close();
+        std::cout << "Initial condition loaded.\n";
+        
+        step_offset = std::stoi(argv[2]);
+
+    } else {
+
+        std::cout << "Etching the initial condition\n";
+        etch(*mat, WRAPPED);
+    }
 
     std::cout << "Annealing...\n";
     double V_avg = 0;
-    for (uint32_t step = 0; step <= 100000; step++) {
+    for (uint32_t step = step_offset; step <= 150000 + step_offset; step++) {
 
-        double T = 2;
-        V_avg = anneal_step(*mat, T, *MOVES, WRAPPED);
-        std::cout << "step " << std::to_string(step) << '\n';
-
-        if (step % 1000 == 0) {
+        if (step % 10000 == 0) {
 
             name.str("./output/"); 
             name << std::to_string(step) << ' '
@@ -237,6 +273,12 @@ int main(int argc, char * argv[]) {
                 print_mat(*mat, ofs).close();
             }
         }
+
+        double T = 2;
+        V_avg = anneal_step(*mat, T, *MOVES, WRAPPED);
+        std::cout << "step " << std::to_string(step) << '\n';
+
+        
     }
 
     return 0;

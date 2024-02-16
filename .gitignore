@@ -37,3 +37,4 @@
 # Output files
 output/*
 plots/*
+*.dat
