@@ -1,50 +1,10 @@
-#include <cstdint>
-#include <cstdbool>
-#include <vector>
-#include <array>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <memory>
+#include "parameters.hpp"
 
-static const size_t HEIGHT = 200,
-                    WIDTH = 200;
-
-typedef std::pair<size_t, size_t>                   coord_t;
-typedef std::pair<ptrdiff_t, ptrdiff_t>             coord_diff_t;
-
-template <typename T>
-using mat_t = std::array<std::array<T, WIDTH>, HEIGHT>;
-template <typename T>
-using up = std::unique_ptr<T>;
-
-static const std::vector<coord_diff_t> CLOSEST8 {
-    coord_t{-1, -1},
-    coord_t{-1, 0},
-    coord_t{-1, 1},
-    coord_t{0, -1},
-    coord_t{0, 1},
-    coord_t{1, -1},
-    coord_t{1, 0},
-    coord_t{1, 1}
-};
-
-static const std::vector<coord_diff_t> ONEACROSS {
-    coord_t{-2, 0},
-    coord_t{0, -2},
-    coord_t{0, 2},
-    coord_t{2, 0}
-};
-
-
-// Computes valid neighbors of ([r], [c]) and stores them in [neighbors].
-// Returns the number of coordinate pairs in [neighbors].
 up<std::vector<coord_t>>
 valid_neighbors(const size_t r, const size_t c,
                 const size_t max_r, const size_t max_c,
                 const std::vector<coord_diff_t> & offsets,
-                const bool wrap=true) {
+                const bool wrap) {
     
     up<std::vector<coord_t>> neighbors(new std::vector<coord_t>());
     for (auto n : offsets) {
@@ -140,37 +100,6 @@ load_mat(mat_t<int_fast8_t> & mat, std::ifstream & ifs) {
 
 
 double
-potential(const mat_t<int_fast8_t> & mat, const size_t r,
-          const size_t c, const bool wrap=true) {
-
-    double V = 0;
-
-    auto close = valid_neighbors(r, c, HEIGHT, WIDTH, CLOSEST8);
-    for (auto n : *close) {
-        V += 4*mat[n.first][n.second];
-    }
-
-    auto far = valid_neighbors(r, c, HEIGHT, WIDTH, ONEACROSS);
-    for (auto n : *far) {
-        V -= 3*mat[n.first][n.second];
-    }
-
-    return V;
-}
-
-
-bool
-accept(const double V_diff, const double T) {
-
-    if (V_diff < 0) {
-        return true;
-    }
-
-    return (static_cast<double>(rand()))/RAND_MAX < std::exp(-V_diff/T);
-}
-
-
-double
 anneal_step(mat_t<int_fast8_t> & mat, const double T,
             const mat_t<up<std::vector<coord_t>>> & moves,
             const bool wrap=true) {
@@ -257,7 +186,10 @@ int main(int argc, char * argv[]) {
 
     std::cout << "Annealing...\n";
     double V_avg = 0;
-    for (uint32_t step = step_offset; step <= 150000 + step_offset; step++) {
+
+    for (uint32_t step = step_offset;
+         step <= MAX_STEPS + step_offset;
+         step++) {
 
         if (step % 10000 == 0) {
 
