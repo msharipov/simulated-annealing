@@ -1,5 +1,5 @@
 # Examples:
-![Alt Text](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWx3ODZ4dmlzYXZiNzc5aGgyc29heDlsemkzMW8xNmM1eTc3aXllNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Qutj08QBhGEU77iz1P/source.gif | width=250)
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWx3ODZ4dmlzYXZiNzc5aGgyc29heDlsemkzMW8xNmM1eTc3aXllNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Qutj08QBhGEU77iz1P/source.gif" width="250" height="250">
 
 # How to run this:
 
