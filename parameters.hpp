@@ -30,8 +30,8 @@ extern const std::vector<coord_diff_t> CLOSEST8;
 extern const std::vector<coord_diff_t> ONEACROSS;
 
 // Implemented in annealing.cpp!
-// Computes valid neighbors of ([r], [c]) and stores them in [neighbors].
-// Returns the number of coordinate pairs in [neighbors].
+// Returns the vector of coordinate pairs for all of the valid neighbors
+// of ([r], [c]) defined by [offsets].
 extern up<std::vector<coord_t>>
 valid_neighbors(const size_t r, const size_t c,
                 const size_t max_r, const size_t max_c,
