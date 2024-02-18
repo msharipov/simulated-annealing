@@ -21,4 +21,4 @@ particles surrounded by empty space. Generated .dat files are stored in the
 `output/` folder. Plots of the data are stored in `plots/`.
 
 You can load one of the generated .dat files as an initial condition. To do this,
-run `.\annealing [PATH TO .DAT FILE] [INITIAL STEP]` instead.
+run `.\annealing.exe [PATH TO .DAT FILE] [INITIAL STEP]` instead.
