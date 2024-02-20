@@ -147,7 +147,6 @@ int main(int argc, char *argv[]) {
     std::ofstream ofs;
     std::ostringstream name("", std::ios_base::ate);
 
-    const bool WRAPPED = false;
     uint32_t step_offset = 0;
 
     up<mat_t<int_fast8_t>> mat(new mat_t<int_fast8_t>());
@@ -192,8 +191,10 @@ int main(int argc, char *argv[]) {
     std::cout << "Annealing...\n";
     double V_avg = 0;
 
-    for (uint32_t step = step_offset; step <= MAX_STEPS + step_offset; step++) {
-
+    for (uint32_t step = step_offset;
+         step <= MAX_STEPS + step_offset;
+         step++) { 
+        
         if (step % 10000 == 0) {
 
             name.str("./output/");
@@ -207,8 +208,9 @@ int main(int argc, char *argv[]) {
                 print_mat(*mat, ofs).close();
             }
         }
-
-        double T = 2;
+        
+        double T_factor = (step + 1.0)/1500000 - 1;
+        double T = 4*T_factor*T_factor;
         V_avg = anneal_step(*mat, T, *MOVES, WRAPPED);
         std::cout << "step " << std::to_string(step) << '\n';
     }

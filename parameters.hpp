@@ -14,7 +14,9 @@
 static constexpr size_t HEIGHT = 200,
                         WIDTH = 200;
 
-static constexpr uint32_t MAX_STEPS = 300000;
+static constexpr bool WRAPPED = true;
+    
+static constexpr uint32_t MAX_STEPS = 500000;
 
 
 typedef std::pair<size_t, size_t>                   coord_t;
