@@ -3,7 +3,7 @@
 
 # How to run this:
 
-## Windows:
+## Windows 10+:
 REQUIRED:
 - Visual Studio 2017+, including the "Desktop development with C++" workload
 - Python 3.8+
@@ -16,9 +16,22 @@ REQUIRED:
 6. Run the computation with `.\annealing.exe`.
 7. Run `python plot.py` to plot the data.
 
+## Linux (verified on Ubuntu 22.04):
+REQUIRED:
+- GNU C Compiler (you should already have this)
+- Python 3.8+
+
+1. Clone the repo with `git clone https://github.com/msharipov/simulated-annealing`.
+2. Create required folders with `python3 setup.py`.
+3. Configure the `potential()` and `accept()` functions in `parameters.cpp`.
+4. Set the `HEIGHT` and `WIDTH` of the matrix in `parameters.hpp`. `MAX_STEPS` controls how many steps the computation will run for.
+5. Compile with `make annealing`.
+6. Run the computation with `./annealing`.
+7. Run `python3 plot.py` to plot the data.
+
 When run without command line arguments, the initial condition will have all
 particles surrounded by empty space. Generated .dat files are stored in the
 `output/` folder. Plots of the data are stored in `plots/`.
 
 You can load one of the generated .dat files as an initial condition. To do this,
-run `.\annealing.exe [PATH TO .DAT FILE] [INITIAL STEP]` instead.
+run `.\annealing [PATH TO .DAT FILE] [INITIAL STEP]` instead.
