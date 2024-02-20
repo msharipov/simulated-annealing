@@ -34,7 +34,7 @@ extern const std::vector<coord_diff_t> ONEACROSS;
 // of ([r], [c]) defined by [offsets].
 extern up<std::vector<coord_t>>
 valid_neighbors(const size_t r, const size_t c,
-                const size_t max_r, const size_t max_c,
+                const ptrdiff_t max_r, const ptrdiff_t max_c,
                 const std::vector<coord_diff_t> & offsets,
                 const bool wrap=true);
 
