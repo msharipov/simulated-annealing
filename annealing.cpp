@@ -1,6 +1,7 @@
 #include "parameters.hpp"
 #include <cstddef>
-
+#include <algorithm>
+#include <random>
 
 up<std::vector<coord_t>>
 valid_neighbors(const size_t r, const size_t c,
@@ -100,9 +101,20 @@ std::ifstream &load_mat(mat_t<int_fast8_t> &mat, std::ifstream &ifs) {
 }
 
 
+void generate_path(path_t & p){
+    
+    std::random_device rng_dev;
+    std::mt19937 rng(rng_dev());
+    std::iota(p.first.begin(), p.first.end(), 0);
+    std::iota(p.second.begin(), p.second.end(), 0);
+    std::shuffle(p.first.begin(), p.first.end(), rng);
+    std::shuffle(p.first.begin(), p.first.end(), rng);
+}
+
+
 double anneal_step(mat_t<int_fast8_t> &mat, const double T,
                    const mat_t<up<std::vector<coord_t>>> &moves,
-                   const bool wrap = true) {
+                   const path_t & p, const bool wrap = true) {
 
     double V_total = 0;
     int32_t count = 0;
@@ -121,8 +133,11 @@ double anneal_step(mat_t<int_fast8_t> &mat, const double T,
     }
     }
 
-    for (size_t r = 0; r < HEIGHT; r++) {
-    for (size_t c = 0; c < WIDTH; c++) {
+    for (size_t row = 0; row < HEIGHT; row++) {
+    for (size_t col = 0; col < WIDTH; col++) {
+        
+        size_t r = p.first[row];
+        size_t c = p.second[col];
 
         if (mat[r][c] == 0) {
             continue;
@@ -190,6 +205,8 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Annealing...\n";
     double V_avg = 0;
+    path_t path;
+    generate_path(path);
 
     for (uint32_t step = step_offset;
          step <= MAX_STEPS + step_offset;
@@ -211,7 +228,7 @@ int main(int argc, char *argv[]) {
         
         double T_factor = (step + 1.0)/1500000 - 1;
         double T = 4*T_factor*T_factor;
-        V_avg = anneal_step(*mat, T, *MOVES, WRAPPED);
+        V_avg = anneal_step(*mat, T, *MOVES, path, WRAPPED);
         std::cout << "step " << std::to_string(step) << '\n';
     }
 

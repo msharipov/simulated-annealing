@@ -21,6 +21,8 @@ static constexpr uint32_t MAX_STEPS = 500000;
 
 typedef std::pair<size_t, size_t>                   coord_t;
 typedef std::pair<ptrdiff_t, ptrdiff_t>             coord_diff_t;
+typedef std::pair<std::array<size_t, HEIGHT>,
+                  std::array<size_t, WIDTH>>        path_t;
 
 template <typename T>
 using mat_t = std::array<std::array<T, WIDTH>, HEIGHT>;
