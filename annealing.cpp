@@ -30,7 +30,8 @@ valid_neighbors(const size_t r, const size_t c,
 }
 
 
-void etch(mat_t<int_fast8_t> &mat, const bool wrap = true) {
+void
+etch(mat_t<int_fast8_t> &mat, const bool wrap = true) {
 
     up<mat_t<up<std::vector<coord_t>>>> neighbors(new mat_t<up<std::vector<coord_t>>>());
 
@@ -65,7 +66,8 @@ void etch(mat_t<int_fast8_t> &mat, const bool wrap = true) {
 }
 
 
-std::ofstream &print_mat(const mat_t<int_fast8_t> &mat, std::ofstream &ofs) {
+std::ofstream &
+print_mat(const mat_t<int_fast8_t> &mat, std::ofstream &ofs) {
 
     for (auto row : mat) {
         for (int_fast8_t x : row) {
@@ -78,7 +80,8 @@ std::ofstream &print_mat(const mat_t<int_fast8_t> &mat, std::ofstream &ofs) {
 }   
 
 
-std::ifstream &load_mat(mat_t<int_fast8_t> &mat, std::ifstream &ifs) {
+std::ifstream &
+load_mat(mat_t<int_fast8_t> &mat, std::ifstream &ifs) {
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
@@ -101,7 +104,8 @@ std::ifstream &load_mat(mat_t<int_fast8_t> &mat, std::ifstream &ifs) {
 }
 
 
-void generate_path(path_t & p){
+void
+generate_path(path_t & p){
     
     std::random_device rng_dev;
     std::mt19937 rng(rng_dev());
@@ -112,7 +116,8 @@ void generate_path(path_t & p){
 }
 
 
-double anneal_step(mat_t<int_fast8_t> &mat, const double T,
+double
+anneal_step(mat_t<int_fast8_t> &mat, const double T,
                    const mat_t<up<std::vector<coord_t>>> &moves,
                    const path_t & p, const bool wrap = true) {
 
@@ -157,23 +162,27 @@ double anneal_step(mat_t<int_fast8_t> &mat, const double T,
 }
 
 
-int main(int argc, char *argv[]) {
+int
+main(int argc, char *argv[]) {
 
     std::ofstream ofs;
     std::ostringstream name("", std::ios_base::ate);
-
     uint32_t step_offset = 0;
 
-    up<mat_t<int_fast8_t>> mat(new mat_t<int_fast8_t>());
+    up<mat_t<int_fast8_t>> mat(new mat_t<int_fast8_t>()); 
+
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
+
         (*mat)[r][c] = 1;
     }
     }
 
     up<mat_t<up<std::vector<coord_t>>>> MOVES(new mat_t<up<std::vector<coord_t>>>());
+
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
+
         (*MOVES)[r][c] = valid_neighbors(r, c, HEIGHT, WIDTH, CLOSEST8, WRAPPED);
     }
     }
@@ -188,7 +197,7 @@ int main(int argc, char *argv[]) {
         ifs.open(filename);
         if (!ifs.is_open()) {
             std::cerr << "Failed reading the file! Aborting...\n";
-            exit(1);
+            exit(EXIT_FAILURE);
         }
 
         load_mat(*mat, ifs);
@@ -232,6 +241,6 @@ int main(int argc, char *argv[]) {
         std::cout << "step " << std::to_string(step) << '\n';
     }
 
-    return 0;
+    exit(EXIT_SUCCESS);
 }
 
