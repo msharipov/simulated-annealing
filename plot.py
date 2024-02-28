@@ -1,3 +1,5 @@
+# This script plots the .dat files in the output folder
+
 import matplotlib.pyplot as plt
 import sys
 from numpy import loadtxt
