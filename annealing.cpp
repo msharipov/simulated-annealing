@@ -3,17 +3,17 @@
 #include <algorithm>
 #include <random>
 
-up<std::vector<coord_t>>
+up<std::vector<coord>>
 valid_neighbors(const size_t r, const size_t c,
                 const ptrdiff_t max_r, const ptrdiff_t max_c,
                 const std::vector<coord_diff_t> &offsets,
                 const bool wrap) {
 
-    up<std::vector<coord_t>> neighbors(new std::vector<coord_t>());
+    up<std::vector<coord>> neighbors(new std::vector<coord>());
     for (const auto & n: offsets) {
         if (wrap) {
 
-            coord_t new_n{(r + n.first + max_r) % max_r,
+            coord new_n{(r + n.first + max_r) % max_r,
                           (c + n.second + max_c) % max_c};
             neighbors->push_back(new_n);
 
@@ -21,7 +21,7 @@ valid_neighbors(const size_t r, const size_t c,
 
             ptrdiff_t nr = r + n.first, nc = c + n.second;
             if (nr >= 0 && nr < max_r && nc >= 0 && nc < max_c) {
-                neighbors->push_back(coord_t{nr, nc});
+                neighbors->push_back(coord{nr, nc});
             }
         }
     }
@@ -33,7 +33,7 @@ valid_neighbors(const size_t r, const size_t c,
 void
 etch(mat_t<int_fast8_t> &mat, const bool wrap = true) {
 
-    up<mat_t<up<std::vector<coord_t>>>> neighbors(new mat_t<up<std::vector<coord_t>>>());
+    up<mat_t<up<std::vector<coord>>>> neighbors(new mat_t<up<std::vector<coord>>>());
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
@@ -56,7 +56,7 @@ etch(mat_t<int_fast8_t> &mat, const bool wrap = true) {
 
               sparse = false;
               size_t n = rand() % (*neighbors)[r][c]->size();
-              coord_t etch_at = (*(*neighbors)[r][c])[n];
+              coord etch_at = (*(*neighbors)[r][c])[n];
               mat[etch_at.first][etch_at.second] = 0;
               (*neighbors)[r][c]->erase((*neighbors)[r][c]->begin() + n);
             }
@@ -118,7 +118,7 @@ generate_path(path_t & p){
 
 double
 anneal_step(mat_t<int_fast8_t> &mat, const double T,
-                   const mat_t<up<std::vector<coord_t>>> &moves,
+                   const mat_t<up<std::vector<coord>>> &moves,
                    const path_t & p, const bool wrap = true) {
 
     double V_total = 0;
@@ -148,7 +148,7 @@ anneal_step(mat_t<int_fast8_t> &mat, const double T,
             continue;
         }
 
-        coord_t move((*moves[r][c])[rand() % (*moves[r][c]).size()]);
+        coord move((*moves[r][c])[rand() % (*moves[r][c]).size()]);
         double V_diff = (*V)[move.first][move.second] - (*V)[r][c];
 
         if (accept(V_diff, T) && mat[move.first][move.second] == 0) {
@@ -178,7 +178,7 @@ main(int argc, char *argv[]) {
     }
     }
 
-    up<mat_t<up<std::vector<coord_t>>>> MOVES(new mat_t<up<std::vector<coord_t>>>());
+    up<mat_t<up<std::vector<coord>>>> MOVES(new mat_t<up<std::vector<coord>>>());
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {

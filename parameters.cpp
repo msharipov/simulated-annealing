@@ -2,21 +2,21 @@
 #include <cmath>
 
 const std::vector<coord_diff_t> CLOSEST8{
-    coord_t{-1, -1},
-    coord_t{-1, 0},
-    coord_t{-1, 1},
-    coord_t{0, -1},
-    coord_t{0, 1},
-    coord_t{1, -1},
-    coord_t{1, 0},
-    coord_t{1, 1}
+    coord{-1, -1},
+    coord{-1, 0},
+    coord{-1, 1},
+    coord{0, -1},
+    coord{0, 1},
+    coord{1, -1},
+    coord{1, 0},
+    coord{1, 1}
 };
 
 const std::vector<coord_diff_t> ONEACROSS{
-    coord_t{-2, 0},
-    coord_t{0, -2},
-    coord_t{0, 2},
-    coord_t{2, 0}
+    coord{-2, 0},
+    coord{0, -2},
+    coord{0, 2},
+    coord{2, 0}
 };
 
 double potential(const mat_t<int_fast8_t> &mat, const size_t r, const size_t c,
