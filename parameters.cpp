@@ -1,7 +1,7 @@
 #include "parameters.hpp"
 #include <cmath>
 
-const std::vector<coord_diff_t> CLOSEST8{
+const std::vector<coord_diff> CLOSEST8{
     coord{-1, -1},
     coord{-1, 0},
     coord{-1, 1},
@@ -12,7 +12,7 @@ const std::vector<coord_diff_t> CLOSEST8{
     coord{1, 1}
 };
 
-const std::vector<coord_diff_t> ONEACROSS{
+const std::vector<coord_diff> ONEACROSS{
     coord{-2, 0},
     coord{0, -2},
     coord{0, 2},

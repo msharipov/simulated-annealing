@@ -6,7 +6,7 @@
 up<std::vector<coord>>
 valid_neighbors(const size_t r, const size_t c,
                 const ptrdiff_t max_r, const ptrdiff_t max_c,
-                const std::vector<coord_diff_t> &offsets,
+                const std::vector<coord_diff> &offsets,
                 const bool wrap) {
 
     up<std::vector<coord>> neighbors(new std::vector<coord>());

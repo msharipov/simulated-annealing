@@ -20,7 +20,7 @@ static constexpr uint32_t MAX_STEPS = 500000;
 
 
 typedef std::pair<size_t, size_t>                   coord;
-typedef std::pair<ptrdiff_t, ptrdiff_t>             coord_diff_t;
+typedef std::pair<ptrdiff_t, ptrdiff_t>             coord_diff;
 typedef std::pair<std::array<size_t, HEIGHT>,
                   std::array<size_t, WIDTH>>        path_t;
 
@@ -29,9 +29,9 @@ using mat_t = std::array<std::array<T, WIDTH>, HEIGHT>;
 template <typename T>
 using up = std::unique_ptr<T>;
 
-extern const std::vector<coord_diff_t> CLOSEST8;
+extern const std::vector<coord_diff> CLOSEST8;
 
-extern const std::vector<coord_diff_t> ONEACROSS;
+extern const std::vector<coord_diff> ONEACROSS;
 
 // Implemented in annealing.cpp!
 // Returns the vector of coordinate pairs for all of the valid neighbors
@@ -39,7 +39,7 @@ extern const std::vector<coord_diff_t> ONEACROSS;
 extern up<std::vector<coord>>
 valid_neighbors(const size_t r, const size_t c,
                 const ptrdiff_t max_r, const ptrdiff_t max_c,
-                const std::vector<coord_diff_t> & offsets,
+                const std::vector<coord_diff> & offsets,
                 const bool wrap=true);
 
 extern double potential(const mat_t<int_fast8_t> & mat,
