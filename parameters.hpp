@@ -25,7 +25,7 @@ typedef std::pair<std::array<size_t, HEIGHT>,
                   std::array<size_t, WIDTH>>        path_t;
 
 template <typename T>
-using mat_t = std::array<std::array<T, WIDTH>, HEIGHT>;
+using Matrix = std::array<std::array<T, WIDTH>, HEIGHT>;
 template <typename T>
 using up = std::unique_ptr<T>;
 
@@ -42,7 +42,7 @@ valid_neighbors(const size_t r, const size_t c,
                 const std::vector<coord_diff> & offsets,
                 const bool wrap=true);
 
-extern double potential(const mat_t<int_fast8_t> & mat,
+extern double potential(const Matrix<int_fast8_t> & mat,
                         const size_t r, const size_t c,
                         const bool wrap=true);
 

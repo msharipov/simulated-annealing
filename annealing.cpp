@@ -31,9 +31,9 @@ valid_neighbors(const size_t r, const size_t c,
 
 
 void
-etch(mat_t<int_fast8_t> &mat, const bool wrap = true) {
+etch(Matrix<int_fast8_t> &mat, const bool wrap = true) {
 
-    up<mat_t<up<std::vector<coord>>>> neighbors(new mat_t<up<std::vector<coord>>>());
+    up<Matrix<up<std::vector<coord>>>> neighbors(new Matrix<up<std::vector<coord>>>());
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
@@ -67,7 +67,7 @@ etch(mat_t<int_fast8_t> &mat, const bool wrap = true) {
 
 
 std::ofstream &
-print_mat(const mat_t<int_fast8_t> &mat, std::ofstream &ofs) {
+print_mat(const Matrix<int_fast8_t> &mat, std::ofstream &ofs) {
 
     for (auto row : mat) {
         for (int_fast8_t x : row) {
@@ -81,7 +81,7 @@ print_mat(const mat_t<int_fast8_t> &mat, std::ofstream &ofs) {
 
 
 std::ifstream &
-load_mat(mat_t<int_fast8_t> &mat, std::ifstream &ifs) {
+load_mat(Matrix<int_fast8_t> &mat, std::ifstream &ifs) {
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
@@ -117,14 +117,14 @@ generate_path(path_t & p){
 
 
 double
-anneal_step(mat_t<int_fast8_t> &mat, const double T,
-                   const mat_t<up<std::vector<coord>>> &moves,
+anneal_step(Matrix<int_fast8_t> &mat, const double T,
+                   const Matrix<up<std::vector<coord>>> &moves,
                    const path_t & p, const bool wrap = true) {
 
     double V_total = 0;
     int32_t count = 0;
 
-    up<mat_t<double>> V(new mat_t<double>());
+    up<Matrix<double>> V(new Matrix<double>());
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
@@ -169,7 +169,7 @@ main(int argc, char *argv[]) {
     std::ostringstream name("", std::ios_base::ate);
     uint32_t step_offset = 0;
 
-    up<mat_t<int_fast8_t>> mat(new mat_t<int_fast8_t>()); 
+    up<Matrix<int_fast8_t>> mat(new Matrix<int_fast8_t>()); 
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {
@@ -178,7 +178,7 @@ main(int argc, char *argv[]) {
     }
     }
 
-    up<mat_t<up<std::vector<coord>>>> MOVES(new mat_t<up<std::vector<coord>>>());
+    up<Matrix<up<std::vector<coord>>>> MOVES(new Matrix<up<std::vector<coord>>>());
 
     for (size_t r = 0; r < HEIGHT; r++) {
     for (size_t c = 0; c < WIDTH; c++) {

@@ -19,7 +19,7 @@ const std::vector<coord_diff> ONEACROSS{
     coord{2, 0}
 };
 
-double potential(const mat_t<int_fast8_t> &mat, const size_t r, const size_t c,
+double potential(const Matrix<int_fast8_t> &mat, const size_t r, const size_t c,
                  const bool wrap) {
 
     double V = 0;
