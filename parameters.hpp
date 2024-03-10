@@ -4,11 +4,7 @@
 #include <array>
 #include <cstdbool>
 #include <cstdint>
-#include <fstream>
-#include <iostream>
 #include <memory>
-#include <sstream>
-#include <string>
 #include <vector>
 
 static constexpr size_t HEIGHT = 200, WIDTH = 200;

@@ -2,6 +2,9 @@
 #include <algorithm>
 #include <cstddef>
 #include <random>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 up<std::vector<coord>>
 valid_neighbors(const size_t r, const size_t c,
