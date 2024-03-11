@@ -105,7 +105,7 @@ load_mat(Matrix<int_fast8_t> &mat, std::ifstream &ifs) {
         } catch (const std::ifstream::failure &exc) {
 
             std::cerr << "Failed reading the file! Aborting...\n";
-            exit(1);
+            exit(EXIT_FAILURE);
         }
     }
     }
