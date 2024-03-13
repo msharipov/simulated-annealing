@@ -11,15 +11,15 @@ valid_neighbors(const size_t r, const size_t c,
                 const ptrdiff_t max_r, const ptrdiff_t max_c,
                 const std::vector<coord_diff> &offsets, const bool wrap) {
 
-  up<std::vector<coord>> neighbors(new std::vector<coord>());
+    up<std::vector<coord>> neighbors(new std::vector<coord>());
 
-  for (const auto &n : offsets) {
+    for (const auto &n : offsets) {
 
-    if (wrap) {
+        if (wrap) {
 
-        coord new_n{(r + n.first + max_r) % max_r,
-                      (c + n.second + max_c) % max_c};
-        neighbors->push_back(new_n);
+            coord new_n{(r + n.first + max_r) % max_r,
+                          (c + n.second + max_c) % max_c};
+            neighbors->push_back(new_n);
 
         } else {
 
