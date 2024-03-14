@@ -244,7 +244,7 @@ main(int argc, char *argv[]) {
 
             if (ofs.fail()) {
 
-                std::cout << "Failed to open a file at step "
+                std::cerr << "Failed to open a file at step "
                           << std::to_string(step)
                           << '\n';
 
